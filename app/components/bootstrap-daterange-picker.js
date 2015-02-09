@@ -36,7 +36,30 @@ export default Ember.Component.extend({
     });
 
     return options;
-  }.property(jqueryAttrs),
+  }.property(
+    'startDate',
+    'endDate',
+    'minDate',
+    'maxDate',
+    'dateLimit',
+    'timeZone',
+    'showDropdowns',
+    'showWeekNumbers',
+    'timePicker',
+    'timePickerIncrement',
+    'timePicker12Hour',
+    'timePickerSeconds',
+    'ranges',
+    'opens',
+    'buttonClasses',
+    'applyClass',
+    'cancelClass',
+    'format',
+    'seperator',
+    'locale',
+    'singleDatePicker',
+    'parentEl'
+  ),
 
   didInsertElement: function() {
     var self = this;
