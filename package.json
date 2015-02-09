@@ -33,7 +33,11 @@
   },
   "description": "The default blueprint for ember-cli addons.",
   "keywords": [
-    "ember-addon"
+    "ember-addon",
+    "date",
+    "picker",
+    "daterange",
+    "bootstrap"
   ],
   "ember-addon": {
     "configPath": "tests/dummy/config"
