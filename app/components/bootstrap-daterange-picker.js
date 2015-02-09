@@ -64,12 +64,8 @@ export default Ember.Component.extend({
   didInsertElement: function() {
     var self = this;
 
-    this.$().daterangepicker(this.get('jQueryOptions'),
-      function(start, end, label) {
-        self.set('startDate', start);
-        self.set('endDate', end);
-    });
-
+    this.$().daterangepicker();
+    this._setOptions();
     this._setStart();
     this._setEnd();
   },
@@ -82,11 +78,25 @@ export default Ember.Component.extend({
     this.$().data('daterangepicker').setEndDate(this.get('endDate'));
   },
 
+  _setOptions: function() {
+    var self = this;
+    var changeCallback = function(start, end, label) {
+      self.set('startDate', start);
+      self.set('endDate', end);
+    };
+
+    this.$().data('daterangepicker').setOptions(this.get('jQueryOptions'), this._changeCallback);
+  },
+
   startDateChanged: function() {
     this._setStart();
   }.observes('startDate'),
 
   endDateChanged: function() {
     this._setEnd();
-  }.observes('endDate')
+  }.observes('endDate'),
+
+  jQueryOptionsChanged: function() {
+    this.$().data('daterangepicker').setOptions(this.get('jQueryOptions'));
+  }.observes('jQueryOptions')
 });

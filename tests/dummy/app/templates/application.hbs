@@ -1,4 +1,4 @@
-Bootstrap Daterange <br />
+<h1>Bootstrap Daterange</h1>
 <label>Start</label>
 {{bootstrap-daterange-picker singleDatePicker=true startDate=start}}
 
@@ -7,5 +7,6 @@ Bootstrap Daterange <br />
 <br />
 
 <button {{action 'go'}}>Go</button>
+<button {{action 'addRanges'}}>Add Ranges</button>
 
-{{bootstrap-daterange-picker startDate=start endDate=end}}
+{{bootstrap-daterange-picker ranges=ranges startDate=start endDate=end}}
