@@ -27,8 +27,6 @@ var jqueryAttrs = [
 export default Ember.Component.extend({
   tagName: 'input',
 
-  startDate: '',
-
   jQueryOptions: function() {
     var options = {};
     var self = this;
