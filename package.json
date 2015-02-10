@@ -10,11 +10,11 @@
     "build": "ember build",
     "test": "ember test"
   },
-  "repository": "",
+  "repository": "https://github.com/wedgex/ember-bootstrap-daterange",
   "engines": {
     "node": ">= 0.10.0"
   },
-  "author": "",
+  "author": "Hunter Haydel",
   "license": "MIT",
   "devDependencies": {
     "broccoli-asset-rev": "^1.0.0",
