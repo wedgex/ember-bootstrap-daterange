@@ -1,6 +1,9 @@
 module.exports = {
   description: 'adds ember-bootstrap-daterange bower dependencies',
 
+  normalizeEntityName: function() {
+  },
+
   afterInstall: function(options) {
     var that = this;
 
