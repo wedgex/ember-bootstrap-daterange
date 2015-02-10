@@ -4,10 +4,6 @@
 module.exports = {
   name: 'ember-bootstrap-daterange',
 
-  blueprintsPath: function() {
-    return path.join(__dirname, 'blueprints');
-  },
-
   included: function(app) {
     this._super.included(app);
 
