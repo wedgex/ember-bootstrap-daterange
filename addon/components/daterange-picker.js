@@ -1,4 +1,5 @@
 import Ember from 'ember';
+
 var jqueryAttrs = [
   'startDate',
   'endDate',
@@ -24,7 +25,7 @@ var jqueryAttrs = [
   'parentEl'
 ];
 
-export default Ember.Mixin.create({
+export default Ember.Component.extend({
   tagName: 'input',
 
   jQueryOptions: function() {

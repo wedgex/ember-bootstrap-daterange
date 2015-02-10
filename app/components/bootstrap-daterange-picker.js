@@ -1,5 +1,3 @@
-import Ember from 'ember';
-import BootstrapDaterangePickerMixin from 'ember-bootstrap-daterange/mixins/bootstrap-daterange-picker';
+import BootstrapDaterangePicker from 'ember-bootstrap-daterange/components/daterange-picker';
 
-export default Ember.Component.extend(BootstrapDaterangePickerMixin, {
-});
+export default BootstrapDaterangePicker;
