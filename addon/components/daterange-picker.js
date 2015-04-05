@@ -1,103 +1,103 @@
 import Ember from 'ember';
 
 var jqueryAttrs = [
-  'startDate',
-  'endDate',
-  'minDate',
-  'maxDate',
-  'dateLimit',
-  'timeZone',
-  'showDropdowns',
-  'showWeekNumbers',
-  'timePicker',
-  'timePickerIncrement',
-  'timePicker12Hour',
-  'timePickerSeconds',
-  'ranges',
-  'opens',
-  'buttonClasses',
-  'applyClass',
-  'cancelClass',
-  'format',
-  'seperator',
-  'locale',
-  'singleDatePicker',
-  'parentEl'
+	'startDate',
+	'endDate',
+	'minDate',
+	'maxDate',
+	'dateLimit',
+	'timeZone',
+	'showDropdowns',
+	'showWeekNumbers',
+	'timePicker',
+	'timePickerIncrement',
+	'timePicker12Hour',
+	'timePickerSeconds',
+	'ranges',
+	'opens',
+	'buttonClasses',
+	'applyClass',
+	'cancelClass',
+	'format',
+	'separator',
+	'locale',
+	'singleDatePicker',
+	'parentEl'
 ];
 
 export default Ember.Component.extend({
-  tagName: 'input',
+	tagName: 'input',
 
-  jQueryOptions: function() {
-    var options = {};
-    var self = this;
+	jQueryOptions: Ember.computed(jqueryAttrs.join(','), function () {
+		var options = {};
+		var self = this;
 
-    jqueryAttrs.forEach(function(attr) {
-      options[attr] = self.get(attr);
-    });
+		jqueryAttrs.forEach(function (attr) {
+			options[attr] = self.get(attr);
+		});
+		return options;
+	}),
 
-    return options;
-  }.property(
-    'startDate',
-    'endDate',
-    'minDate',
-    'maxDate',
-    'dateLimit',
-    'timeZone',
-    'showDropdowns',
-    'showWeekNumbers',
-    'timePicker',
-    'timePickerIncrement',
-    'timePicker12Hour',
-    'timePickerSeconds',
-    'ranges',
-    'opens',
-    'buttonClasses',
-    'applyClass',
-    'cancelClass',
-    'format',
-    'seperator',
-    'locale',
-    'singleDatePicker',
-    'parentEl'
-  ),
+	didInsertElement: function () {
+		Ember.run.schedule('afterRender', this, this._renderDatePicker);
+	},
 
-  didInsertElement: function() {
-    var self = this;
+	_renderDatePicker: function () {
+		this.$().daterangepicker();
+		this._setOptions();
+		this._setStart();
+		this._setEnd();
+	},
 
-    this.$().daterangepicker();
-    this._setOptions();
-    this._setStart();
-    this._setEnd();
-  },
+	_setStart: function () {
+		if (this.state === 'inDOM') {
+			var dateRangePickerObject = this.$().data('daterangepicker');
+			if (dateRangePickerObject) {
+				dateRangePickerObject.setStartDate(this.get('startDate'));
+			}
+		}
+	},
 
-  _setStart: function() {
-    this.$().data('daterangepicker').setStartDate(this.get('startDate'));
-  },
+	_setEnd: function () {
+		if (this.state === 'inDOM') {
+			var dateRangePickerObject = this.$().data('daterangepicker');
+			if (dateRangePickerObject) {
+				dateRangePickerObject.setEndDate(this.get('endDate'));
+			}
+		}
+	},
 
-  _setEnd: function() {
-    this.$().data('daterangepicker').setEndDate(this.get('endDate'));
-  },
+	_setOptions: function () {
+		var currentComponent = this;
+		var changeCallback = function (start, end, label) {
 
-  _setOptions: function() {
-    var self = this;
-    var changeCallback = function(start, end, label) {
-      self.set('startDate', start);
-      self.set('endDate', end);
-    };
+			currentComponent.set('startDate', start);
+			currentComponent.set('endDate', end);
+		};
+		if (this.state === 'inDOM') {
+			var dateRangePickerObject = this.$().data('daterangepicker');
+			if (dateRangePickerObject) {
+				dateRangePickerObject.setOptions(this.get('jQueryOptions'), changeCallback);
+			}
+		}
+	},
 
-    this.$().data('daterangepicker').setOptions(this.get('jQueryOptions'), changeCallback);
-  },
+	startDateDidChange: function () {
+		Ember.run.once(this, this._setStart);
+	}.observes('startDate'),
 
-  startDateChanged: function() {
-    this._setStart();
-  }.observes('startDate'),
+	endDateDidChange: function () {
+		Ember.run.once(this, this._setEnd);
 
-  endDateChanged: function() {
-    this._setEnd();
-  }.observes('endDate'),
+	}.observes('endDate'),
 
-  jQueryOptionsChanged: function() {
-    this._setOptions();
-  }.observes('jQueryOptions')
+	dateOptionsChanged: function () {
+		Ember.run.once(this, this._setOptions);
+	}.observes('jQueryOptions'),
+
+	willDestroyElement: function () {
+		if (this.state === 'inDOM' && this.$().data('daterangepicker')) {
+			this.$().daterangepicker('remove');
+		}
+	}
 });
