@@ -84,18 +84,18 @@ export default Ember.Component.extend({
     }
   },
 
-  startDateDidChange: function() {
+  startDateDidChange: Ember.observer('startDate',function() {
     Ember.run.once(this, this._setStart);
-  }.observes('startDate'),
+  }),
 
-  endDateDidChange: function() {
+  endDateDidChange: Ember.observer('endDate',function() {
     Ember.run.once(this, this._setEnd);
 
-  }.observes('endDate'),
+  }),
 
-  dateOptionsChanged: function() {
+  dateOptionsChanged: Ember.observer('jQueryOptions',function() {
     Ember.run.once(this, this._setOptions);
-  }.observes('jQueryOptions'),
+  }),
 
   willDestroyElement: function() {
     this._super.apply(this, arguments);
