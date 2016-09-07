@@ -1,4 +1,4 @@
-# Ember-bootstrap-daterange
+# Ember-bootstrap-daterange ( DEPRECIATED )
 
 Ember add-on-ification of [bootstrap daterangepicker](https://github.com/dangrossman/bootstrap-daterangepicker).
 
